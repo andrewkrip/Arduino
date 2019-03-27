@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Ports;
 using SerialPortExtension.SendReceive;
+using System.Threading;
 
 namespace ArduinoControl
 {
@@ -17,28 +18,30 @@ namespace ArduinoControl
         {
             Disconnect();
         }
-        
+
         public void Connect()
         {
             if (isConnected)
                 return;
             foreach (string port in SerialPort.GetPortNames())
             {
-                serialPort = new SerialPort(port) { NewLine = "\r\n" };
+                serialPort = new SerialPort(port) { NewLine = "\r\n", ReadTimeout = 2000 };
                 try
                 {
+                    serialPort.DtrEnable = true;
                     serialPort.Open();
-                    serialPort.DiscardInBuffer();
-                    serialPort.DiscardOutBuffer();
-                    string response = serialPort.SendReceive("Connect?");
-                    if (response.Contains("Connect!"))
+                    serialPort.DtrEnable = false;
+                    string response = serialPort.ReadLine();
+                    if (response.Contains("Arduino-C#-1.0.0"))
                     {
                         isConnected = true;
+                        serialPort.ReadTimeout = 200;
                         return;
                     }
                     else
                         Disconnect();
-                } catch { }
+                }
+                catch { }
             }
             throw new Exception("Arduino Not Found");
         }
@@ -48,6 +51,7 @@ namespace ArduinoControl
             isConnected = false;
             serialPort?.Close();
             serialPort?.Dispose();
+            serialPort = null;
         }
 
         public void LedOn()

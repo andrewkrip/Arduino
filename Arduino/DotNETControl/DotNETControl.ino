@@ -9,15 +9,19 @@ void setup() {
   mpr.begin();
 }
 
+void beginSerialConnection() {
+  Serial.begin(9600);
+  while (!Serial) { ; }
+  Serial.println("Arduino-C#-1.0.0");
+  clearSerialBuffer();
+}
+
+
 void loop() {
   if(Serial.available()) {
     delay(20);
     char head = Serial.read();
     switch (head) {
-      case 'C': { //Request to connect
-        Serial.println("Connect!");
-        break;
-      }
       case 'A': { //Request for analog value
         int pin = Serial.parseInt();
         pinMode(pin, INPUT);
@@ -65,12 +69,6 @@ void loop() {
     clearSerialBuffer();
     Serial.flush();
   }
-}
-
-void beginSerialConnection() {
-  Serial.begin(9600);
-  while (!Serial) { ; }
-  clearSerialBuffer();
 }
 
 void clearSerialBuffer() {
