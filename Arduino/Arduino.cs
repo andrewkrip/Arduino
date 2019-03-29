@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
 using SerialPortExtension.SendReceive;
-using System.Threading;
 
 namespace ArduinoControl
 {

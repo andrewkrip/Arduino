@@ -55,9 +55,8 @@ void loop() {
       case 'S': { //Request for Special Value
         char key = Serial.read();
         if (key == 'P'){
-//          float pressurePSI = mpr.readPressure() / 68.947572932 - 14.7;
-//          Serial.println(pressurePSI);
-          Serial.println(15.7);
+          float pressurePSI = mpr.readPressure() / 68.947572932 - 14.7;
+          Serial.println(pressurePSI);
         } else
           Serial.println("INVALID REQUEST");
         break;

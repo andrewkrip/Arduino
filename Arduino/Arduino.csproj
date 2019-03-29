@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SerialPort.SendReceive">
-      <HintPath>..\..\SerialPort.SendReceive\SerialPort.SendReceive\bin\Debug\SerialPort.SendReceive.dll</HintPath>
+    <Reference Include="SerialPort.SendReceive, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\~Extensions\SerialPort.SendReceive\SerialPort.SendReceive\bin\Release\SerialPort.SendReceive.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
