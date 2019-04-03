@@ -16,7 +16,6 @@ void beginSerialConnection() {
   clearSerialBuffer();
 }
 
-
 void loop() {
   if(Serial.available()) {
     delay(20);
